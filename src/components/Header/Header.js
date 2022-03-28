@@ -1,7 +1,7 @@
 import Container from "react-bootstrap/Container";
 import { Button, Stack } from "react-bootstrap";
 
-export default function Header() {
+export default function Header(props) {
   return (
     <Container
       fluid
@@ -10,8 +10,8 @@ export default function Header() {
     >
       <Stack direction="horizontal" gap={2}>
         <h1 className="me-auto">Budgets</h1>
-        <Button variant="primary">Add Budget</Button>
-        <Button variant="outline-primary">Add Expense</Button>
+        <Button variant="primary" onClick={props.onAddBudget}>Add Budget</Button>
+        <Button variant="outline-primary" onClick={props.onAddExpense}>Add Expense</Button>
       </Stack>
     </Container>
   );
