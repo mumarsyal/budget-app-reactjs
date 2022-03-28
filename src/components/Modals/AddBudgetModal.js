@@ -1,5 +1,5 @@
-import { useRef } from "react"
-import { Button, Form, Modal } from "react-bootstrap"
+import { useRef } from "react";
+import { Button, Form, Modal } from "react-bootstrap";
 
 import { useBudgets } from "../../contexts/BudgetsContext";
 
@@ -12,7 +12,7 @@ function AddBudgetModal(props) {
     e.preventDefault();
     addBudget({
       title: titleRef.current.value,
-      max: +maxRef.current.value
+      max: +maxRef.current.value,
     });
     props.handleClose();
   }
@@ -30,15 +30,23 @@ function AddBudgetModal(props) {
           </Form.Group>
           <Form.Group controlId="max" className="mb-3">
             <Form.Label>Maximum Spending</Form.Label>
-            <Form.Control ref={maxRef} type="number" min={0} step={1} required></Form.Control>
+            <Form.Control
+              ref={maxRef}
+              type="number"
+              min={0}
+              step={1}
+              required
+            ></Form.Control>
           </Form.Group>
           <div className="d-flex justify-content-end">
-            <Button type="submit" variant="primary">Add</Button>
+            <Button type="submit" variant="primary">
+              Add
+            </Button>
           </div>
         </Form>
       </Modal.Body>
     </Modal>
-  )
+  );
 }
 
-export default AddBudgetModal
+export default AddBudgetModal;
