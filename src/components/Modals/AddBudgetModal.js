@@ -1,42 +1,58 @@
-import { useRef } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
+import { useForm } from "react-hook-form";
 
 import { useBudgets } from "../../contexts/BudgetsContext";
 
 function AddBudgetModal(props) {
-  const titleRef = useRef();
-  const maxRef = useRef();
   const { addBudget } = useBudgets();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-  function handleSubmit(e) {
+  function handleFormSubmit(data, e) {
     e.preventDefault();
     addBudget({
-      title: titleRef.current.value,
-      max: +maxRef.current.value,
+      title: data.title,
+      max: +data.max,
     });
+    reset();
+    props.handleClose();
+  }
+
+  function handleModalClose() {
+    reset();
     props.handleClose();
   }
 
   return (
-    <Modal show={props.show} onHide={props.handleClose}>
+    <Modal show={props.show} onHide={handleModalClose}>
       <Modal.Header closeButton>
         <Modal.Title>New Budget</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit(handleFormSubmit)}>
           <Form.Group controlId="title" className="mb-3">
             <Form.Label>Title</Form.Label>
-            <Form.Control ref={titleRef} type="text" required></Form.Control>
+            <Form.Control
+              type="text"
+              {...register("title", { required: "*This field is Required" })}
+              className={errors.title ? "error-field" : ""}
+            ></Form.Control>
+            <span className="error-message">{errors.title?.message}</span>
           </Form.Group>
           <Form.Group controlId="max" className="mb-3">
             <Form.Label>Maximum Spending</Form.Label>
             <Form.Control
-              ref={maxRef}
               type="number"
-              min={0}
+              min={1}
               step={1}
-              required
+              {...register("max", { required: "*This field is Required" })}
+              className={errors.max ? "error-field" : ""}
             ></Form.Control>
+            <span className="error-message">{errors.max?.message}</span>
           </Form.Group>
           <div className="d-flex justify-content-end">
             <Button type="submit" variant="primary">

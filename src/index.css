@@ -1,0 +1,22 @@
+:root {
+  --primary: #064232;
+  --secondary: white;
+  --special-text: #bf8b69;
+  --form-background: #eeeeee;
+  --error: #d43030;
+}
+.form-control:focus {
+  border: 1px solid #ced4da;
+  outline: none;
+  box-shadow: none;
+}
+.error-field:focus {
+  border: 1px solid var(--error);
+}
+.error-message {
+  color: var(--error);
+  font-size: smaller;
+}
+.error-field {
+  border: 1px solid var(--error);
+}
