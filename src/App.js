@@ -1,21 +1,20 @@
 import { useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Route, Routes } from "react-router-dom";
 
 import AddBudgetModal from "./components/Modals/AddBudgetModal";
 import AddExpenseModal from "./components/Modals/AddExpenseModal";
-import BudgetCard from "./components/BudgetCard/BudgetCard";
-import TotalBudgetCard from "./components/BudgetCard/TotalBudgetCard";
-import UncategorizedBudgetCard from "./components/BudgetCard/UncategorizedBudgetCard";
+import BudgetList from "./components/BudgetList/BudgetList";
 import Header from "./components/Header/Header";
-import { UNCATEGORIZED_BUDGET_ID, useBudgets } from "./contexts/BudgetsContext";
 import ViewExpensesModal from "./components/Modals/ViewExpensesModal";
+import AddBudget from "./components/Pages/AddBudget";
+import AddExpense from "./components/Pages/AddExpense";
+import ListExpenses from "./components/Pages/ListExpenses";
 
 function App() {
   const [showAddBudgetModal, setShowAddBudgetModal] = useState(false);
   const [showAddExpenseModal, setShowAddExpenseModal] = useState(false);
   const [addExpenseModalBudgetId, setAddExpenseModalBudgetId] = useState();
   const [viewExpensesModalBudgetId, setViewExpensesModalBudgetId] = useState();
-  const { budgets, getBudgetExpenses } = useBudgets();
 
   function openAddExpenseModalBudgetId(budgetId) {
     setShowAddExpenseModal(true);
@@ -34,40 +33,13 @@ function App() {
         onAddExpense={() => setShowAddExpenseModal(true)}
       ></Header>
 
-      <Container>
-        <Row>
-          {budgets.map((budget) => {
-            const amountSpent = getBudgetExpenses(budget.id).reduce(
-              (total, expense) => total + expense.amount,
-              0
-            );
-            return (
-              <Col lg={6} key={budget.id}>
-                <BudgetCard
-                  title={budget.title}
-                  max={budget.max}
-                  amountSpent={amountSpent}
-                  onAddExpense={() => openAddExpenseModalBudgetId(budget.id)}
-                  onViewExpenses={() => setViewExpensesModalBudgetId(budget.id)}
-                  showButtons={true}
-                ></BudgetCard>
-              </Col>
-            );
-          })}
-          <Col lg={6}>
-            <UncategorizedBudgetCard
-              onAddExpense={() => openAddExpenseModalBudgetId()}
-              onViewExpenses={() =>
-                setViewExpensesModalBudgetId(UNCATEGORIZED_BUDGET_ID)
-              }
-              showButtons={true}
-            ></UncategorizedBudgetCard>
-          </Col>
-          <Col lg={6}>
-            <TotalBudgetCard></TotalBudgetCard>
-          </Col>
-        </Row>
-      </Container>
+      <Routes>
+        <Route path="/" element={<BudgetList/>}/>
+        <Route path="/add-budget" element={<AddBudget/>}/>
+        <Route path="/add-expense" element={<AddExpense/>}/>
+        <Route path="/:budgetId/add-expense" element={<AddExpense/>}/>
+        <Route path="/:budgetId/view-expenses" element={<ListExpenses/>}/>
+      </Routes>
 
       <AddBudgetModal
         show={showAddBudgetModal}

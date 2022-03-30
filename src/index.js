@@ -6,11 +6,14 @@ import "./index.css";
 
 import App from "./App";
 import { BudgetsProvider } from "./contexts/BudgetsContext";
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
     <BudgetsProvider>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </BudgetsProvider>
   </React.StrictMode>,
   document.getElementById("root")

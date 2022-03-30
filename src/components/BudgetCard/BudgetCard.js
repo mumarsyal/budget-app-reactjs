@@ -1,4 +1,5 @@
 import { Button, Card, ProgressBar, Stack } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import { currencyFormatter } from "../../utils";
 
@@ -39,16 +40,26 @@ export default function BudgetCard(props) {
 
         {props.showButtons && (
           <Stack direction="horizontal" gap={2} className="mt-4">
-            <Button
+            {/* <Button
               variant="outline-primary"
               className="ms-auto"
               onClick={props.onAddExpense}
             >
               Add Expense
-            </Button>
-            <Button variant="outline-secondary" onClick={props.onViewExpenses}>
+            </Button> */}
+            <Link to={props.id + "/add-expense"} className="ms-auto">
+              <Button variant="outline-primary">Add Expense</Button>
+            </Link>
+            {/* <Button variant="outline-secondary" onClick={props.onViewExpenses}>
               View Expenses
-            </Button>
+            </Button> */}
+            <Link to={props.id + "/view-expenses"}>
+              <Button
+                variant="outline-secondary"
+              >
+                View Expenses
+              </Button>
+            </Link>
           </Stack>
         )}
       </Card.Body>

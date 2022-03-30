@@ -5,6 +5,9 @@
   --form-background: #eeeeee;
   --error: #d43030;
 }
+a {
+  text-decoration: none;
+}
 .form-control:focus {
   border: 1px solid #ced4da;
   outline: none;
@@ -19,4 +22,7 @@
 }
 .error-field {
   border: 1px solid var(--error);
+}
+.active {
+  color: orange;
 }
