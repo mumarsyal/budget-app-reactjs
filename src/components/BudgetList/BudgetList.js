@@ -7,18 +7,20 @@ import {
   UNCATEGORIZED_BUDGET_ID,
   useBudgets,
 } from "../../contexts/BudgetsContext";
+import { connect } from "react-redux";
 
-function BudgetList() {
+function BudgetList(props) {
   const { budgets, getBudgetExpenses } = useBudgets();
 
   return (
     <Container>
       <Row>
-        {budgets.map((budget) => {
-          const amountSpent = getBudgetExpenses(budget.id).reduce(
-            (total, expense) => total + expense.amount,
-            0
-          );
+        {props.budgets.map((budget) => {
+          // const amountSpent = getBudgetExpenses(budget.id).reduce(
+          //   (total, expense) => total + expense.amount,
+          //   0
+          // );
+          const amountSpent = 0;
           return (
             <Col lg={6} key={budget.id}>
               <BudgetCard
@@ -50,5 +52,13 @@ function BudgetList() {
     </Container>
   );
 }
+// Mapping the component's props to the reducer's state
+const mapStateToProps = (state) => ({
+  budgets: state.budgetsReducer.budgets,
+});
 
-export default BudgetList;
+// Mapping the component's props to the related actions
+const mapDispatchToProps = (dispatch) => ({});
+
+// mapping action and store the function via props
+export default connect(mapStateToProps, mapDispatchToProps)(BudgetList);

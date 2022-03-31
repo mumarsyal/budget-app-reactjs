@@ -52,10 +52,10 @@ function App() {
         handleClose={closeAddExpenseModal}
       ></AddExpenseModal>
 
-      <ViewExpensesModal
+      {/* <ViewExpensesModal
         budgetId={viewExpensesModalBudgetId}
         handleClose={() => setViewExpensesModalBudgetId()}
-      ></ViewExpensesModal>
+      ></ViewExpensesModal> */}
     </>
   );
 }

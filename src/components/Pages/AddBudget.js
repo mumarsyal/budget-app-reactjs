@@ -1,9 +1,10 @@
-
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
 
 import { useBudgets } from "../../contexts/BudgetsContext";
 import AddBudgetForm from "../Forms/AddBudgetForm";
+import { addBudget } from "../../redux/actions/BudgetActions";
 
 function AddBudget(props) {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ function AddBudget(props) {
 
   function handleFormSubmit(data, e) {
     e.preventDefault();
-    addBudget({
+    props.addBudget({
       title: data.title,
       max: +data.max,
     });
@@ -26,4 +27,9 @@ function AddBudget(props) {
   );
 }
 
-export default AddBudget;
+// Mapping the component's props to the related actions
+const mapDispatchToProps = (dispatch) => ({
+  addBudget: (data) => dispatch(addBudget(data)),
+});
+
+export default connect(null, mapDispatchToProps)(AddBudget);
