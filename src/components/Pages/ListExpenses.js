@@ -21,7 +21,7 @@ function ListExpenses(props) {
       ? { title: UNCATEGORIZED_BUDGET_ID, id: UNCATEGORIZED_BUDGET_ID }
       : props.budgets.find((budget) => budget.id === routeParams.budgetId);
 
-  const expenses = props.expenses; //getBudgetExpenses(routeParams.budgetId);
+  props.getBudgetExpenseList(routeParams.budgetId);
 
   return (
     <Container>
@@ -51,7 +51,7 @@ function ListExpenses(props) {
           </tr>
         </thead>
         <tbody>
-          {expenses.map((expense, index) => (
+          {curBudget.expenseList.map((expense, index) => (
             <tr key={expense.id}>
               <td>{index + 1}</td>
               <td>{expense.description}</td>
@@ -83,7 +83,10 @@ const mapStateToProps = (state) => ({
 // Mapping the component's props to the related actions
 const mapDispatchToProps = (dispatch) => ({
   deleteBudget: (budgetId) => dispatch(BudgetActions.deleteBudget(budgetId)),
-  deleteExpense: (expenseId) => dispatch(ExpenseActions.deleteExpense(expenseId)),
+  deleteExpense: (expenseId) =>
+    dispatch(ExpenseActions.deleteExpense(expenseId)),
+  getBudgetExpenseList: (budgetId) =>
+    dispatch(BudgetActions.getBudgetExpenseList(budgetId)),
 });
 
 // mapping action and store the function via props

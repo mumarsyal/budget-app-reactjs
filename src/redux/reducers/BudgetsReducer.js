@@ -21,6 +21,8 @@ const budgetsReducer = (state = initialState, action) => {
       return deleteExpense({ ...state }, action.id);
     case actionTypes.GET_BUDGET_EXPENSES:
       return getBudgetExpenses({ ...state }, action.budgetId);
+    case actionTypes.GET_BUDGET_EXPENSE_LIST:
+      return getBudgetExpensesList({ ...state }, action.budgetId);
     default:
       return state;
   }
@@ -78,6 +80,18 @@ function getBudgetExpenses(state, budgetId) {
   );
   if (budgetIndex >= 0) {
     state.budgets[budgetIndex].expenses = budgetExpenses;
+  }
+  return state;
+}
+
+function getBudgetExpensesList(state, budgetId) {
+  const budgetExpenses = state.expenses
+    .filter((expense) => expense.budgetId === budgetId);
+  const budgetIndex = state.budgets.findIndex(
+    (budget) => budget.id === budgetId
+  );
+  if (budgetIndex >= 0) {
+    state.budgets[budgetIndex].expenseList = budgetExpenses;
   }
   return state;
 }
