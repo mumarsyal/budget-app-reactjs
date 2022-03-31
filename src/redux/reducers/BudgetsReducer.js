@@ -17,6 +17,8 @@ const budgetsReducer = (state = initialState, action) => {
     case actionTypes.ADD_EXPENSE:
       const updatedExpenses = addExpense(state.expenses, { ...action.data });
       return { ...state, expenses: updatedExpenses };
+    case actionTypes.DELETE_EXPENSE:
+      return deleteExpense({ ...state }, action.id);
     case actionTypes.GET_BUDGET_EXPENSES:
       return getBudgetExpenses({ ...state }, action.budgetId);
     default:
@@ -59,6 +61,12 @@ function addExpense(prevExpenses, { budgetId, amount, description }) {
       description: description,
     },
   ];
+}
+
+function deleteExpense(state, id) {
+  const expenses = state.expenses.filter((expense) => expense.id !== id);
+
+  return { ...state, expenses: [...expenses] };
 }
 
 function getBudgetExpenses(state, budgetId) {

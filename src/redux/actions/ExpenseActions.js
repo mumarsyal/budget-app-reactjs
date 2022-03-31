@@ -6,6 +6,12 @@ export const addExpense = (data) => {
   };
 };
 
+export const deleteExpense = (id) => {
+  return async (dispatch) => {
+    dispatch({ type: actionTypes.DELETE_EXPENSE, id: id });
+  };
+};
+
 const actions = {
   addExpense,
 };
