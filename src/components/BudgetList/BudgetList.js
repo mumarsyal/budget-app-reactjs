@@ -8,6 +8,7 @@ import {
   useBudgets,
 } from "../../contexts/BudgetsContext";
 import { connect } from "react-redux";
+import { BudgetActions } from "../../redux/actions";
 
 function BudgetList(props) {
   const { budgets, getBudgetExpenses } = useBudgets();
@@ -20,14 +21,14 @@ function BudgetList(props) {
           //   (total, expense) => total + expense.amount,
           //   0
           // );
-          const amountSpent = 0;
+          props.getBudgetExpenses(budget.id);
           return (
             <Col lg={6} key={budget.id}>
               <BudgetCard
                 id={budget.id}
                 title={budget.title}
                 max={budget.max}
-                amountSpent={amountSpent}
+                amountSpent={budget.expenses}
                 // onAddExpense={() => openAddExpenseModalBudgetId(budget.id)}
                 // onViewExpenses={() => setViewExpensesModalBudgetId(budget.id)}
                 showButtons={true}
@@ -35,16 +36,20 @@ function BudgetList(props) {
             </Col>
           );
         })}
-        <Col lg={6}>
-          <UncategorizedBudgetCard
-            id={UNCATEGORIZED_BUDGET_ID}
-            // onAddExpense={() => openAddExpenseModalBudgetId()}
-            // onViewExpenses={() =>
-            //   setViewExpensesModalBudgetId(UNCATEGORIZED_BUDGET_ID)
-            // }
-            showButtons={true}
-          ></UncategorizedBudgetCard>
-        </Col>
+        {props.budgets.findIndex(
+          (budget) => budget.id === UNCATEGORIZED_BUDGET_ID
+        ) >= 0 && (
+          <Col lg={6}>
+            <UncategorizedBudgetCard
+              id={UNCATEGORIZED_BUDGET_ID}
+              // onAddExpense={() => openAddExpenseModalBudgetId()}
+              // onViewExpenses={() =>
+              //   setViewExpensesModalBudgetId(UNCATEGORIZED_BUDGET_ID)
+              // }
+              showButtons={true}
+            ></UncategorizedBudgetCard>
+          </Col>
+        )}
         <Col lg={6}>
           <TotalBudgetCard></TotalBudgetCard>
         </Col>
@@ -52,13 +57,17 @@ function BudgetList(props) {
     </Container>
   );
 }
+
 // Mapping the component's props to the reducer's state
 const mapStateToProps = (state) => ({
   budgets: state.budgetsReducer.budgets,
 });
 
 // Mapping the component's props to the related actions
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  getBudgetExpenses: (budgetId) =>
+    dispatch(BudgetActions.getBudgetExpenses(budgetId)),
+});
 
 // mapping action and store the function via props
 export default connect(mapStateToProps, mapDispatchToProps)(BudgetList);

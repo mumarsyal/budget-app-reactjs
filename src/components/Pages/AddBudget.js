@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import { useBudgets } from "../../contexts/BudgetsContext";
 import AddBudgetForm from "../Forms/AddBudgetForm";
-import { addBudget } from "../../redux/actions/BudgetActions";
+import { BudgetActions } from "../../redux/actions";
 
 function AddBudget(props) {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ function AddBudget(props) {
 
 // Mapping the component's props to the related actions
 const mapDispatchToProps = (dispatch) => ({
-  addBudget: (data) => dispatch(addBudget(data)),
+  addBudget: (data) => dispatch(BudgetActions.addBudget(data)),
 });
 
 export default connect(null, mapDispatchToProps)(AddBudget);

@@ -1,5 +1,6 @@
 import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import {
@@ -50,7 +51,7 @@ function AddExpenseForm(props) {
           <option id={UNCATEGORIZED_BUDGET_ID} value={UNCATEGORIZED_BUDGET_ID}>
             {UNCATEGORIZED_BUDGET_ID}
           </option>
-          {budgets.map((budget) => (
+          {props.budgets.map((budget) => (
             <option key={budget.id} value={budget.id}>
               {budget.title}
             </option>
@@ -67,4 +68,10 @@ function AddExpenseForm(props) {
   );
 }
 
-export default AddExpenseForm;
+// Mapping the component's props to the reducer's state
+const mapStateToProps = (state) => ({
+  budgets: state.budgetsReducer.budgets,
+});
+
+// mapping action and store the function via props
+export default connect(mapStateToProps)(AddExpenseForm);

@@ -6,6 +6,12 @@ export const addBudget = (data) => {
   };
 };
 
+export const getBudgetExpenses = (budgetId) => {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.GET_BUDGET_EXPENSES, budgetId: budgetId });
+  };
+};
+
 const actions = {
   addBudget,
 };
