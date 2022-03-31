@@ -6,6 +6,12 @@ export const addBudget = (data) => {
   };
 };
 
+export const deleteBudget = (id) => {
+  return async (dispatch) => {
+    dispatch({ type: actionTypes.DELETE_BUDGET, id: id });
+  };
+};
+
 export const getBudgetExpenses = (budgetId) => {
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_BUDGET_EXPENSES, budgetId: budgetId });

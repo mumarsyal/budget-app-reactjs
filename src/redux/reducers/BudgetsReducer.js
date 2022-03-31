@@ -1,4 +1,5 @@
 import { v4 } from "uuid";
+
 import actionTypes from "../actions/actionTypes";
 
 const initialState = {
@@ -11,6 +12,8 @@ const budgetsReducer = (state = initialState, action) => {
     case actionTypes.ADD_BUDGET:
       const updatedBudgets = addBudget(state.budgets, { ...action.data });
       return { ...state, budgets: updatedBudgets };
+    case actionTypes.DELETE_BUDGET:
+      return deleteBudget({ ...state }, action.id);
     case actionTypes.ADD_EXPENSE:
       const updatedExpenses = addExpense(state.expenses, { ...action.data });
       return { ...state, expenses: updatedExpenses };
@@ -37,6 +40,13 @@ function addBudget(prevBudgets, newBudget) {
       max: newBudget.max,
     },
   ];
+}
+
+function deleteBudget(state, id) {
+  const expenses = state.expenses.filter((expense) => expense.budgetId !== id);
+  const budgets = state.budgets.filter((budget) => budget.id !== id);
+
+  return { ...state, budgets: [...budgets], expenses: [...expenses] };
 }
 
 function addExpense(prevExpenses, { budgetId, amount, description }) {

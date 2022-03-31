@@ -1,10 +1,12 @@
 import { Button, Container, Stack, Table } from "react-bootstrap";
+import { connect } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 import {
   UNCATEGORIZED_BUDGET_ID,
   useBudgets,
 } from "../../contexts/BudgetsContext";
+import { BudgetActions } from "../../redux/actions";
 import { currencyFormatter } from "../../utils";
 
 function ListExpenses(props) {
@@ -17,9 +19,9 @@ function ListExpenses(props) {
   const curBudget =
     UNCATEGORIZED_BUDGET_ID === routeParams.budgetId
       ? { title: UNCATEGORIZED_BUDGET_ID, id: UNCATEGORIZED_BUDGET_ID }
-      : budgets.find((budget) => budget.id === routeParams.budgetId);
+      : props.budgets.find((budget) => budget.id === routeParams.budgetId);
 
-  const expenses = getBudgetExpenses(routeParams.budgetId);
+  const expenses = []//getBudgetExpenses(routeParams.budgetId);
 
   return (
     <Container>
@@ -30,7 +32,7 @@ function ListExpenses(props) {
             <Button
               variant="outline-danger"
               onClick={() => {
-                deleteBudget(routeParams.budgetId);
+                props.deleteBudget(routeParams.budgetId);
                 navigate("/");
               }}
             >
@@ -72,4 +74,16 @@ function ListExpenses(props) {
   );
 }
 
-export default ListExpenses;
+// Mapping the component's props to the reducer's state
+const mapStateToProps = (state) => ({
+  budgets: state.budgetsReducer.budgets,
+  // budgetExpenses: state.budgetsReducer.budgetExpenses
+});
+
+// Mapping the component's props to the related actions
+const mapDispatchToProps = (dispatch) => ({
+  deleteBudget: (budgetId) => dispatch(BudgetActions.deleteBudget(budgetId)),
+});
+
+// mapping action and store the function via props
+export default connect(mapStateToProps, mapDispatchToProps)(ListExpenses);
