@@ -1,11 +1,12 @@
+import { connect } from "react-redux";
 import { useBudgets } from "../../contexts/BudgetsContext";
 import BudgetCard from "./BudgetCard";
 
-function TotalBudgetCard() {
+function TotalBudgetCard(props) {
   const { budgets, expenses } = useBudgets();
 
-  const max = budgets.reduce((total, budget) => total + budget.max, 0);
-  const amountSpent = expenses.reduce(
+  const max = props.budgets.reduce((total, budget) => total + budget.max, 0);
+  const amountSpent = props.expenses.reduce(
     (total, expense) => total + expense.amount,
     0
   );
@@ -22,4 +23,11 @@ function TotalBudgetCard() {
   );
 }
 
-export default TotalBudgetCard;
+// Mapping the component's props to the reducer's state
+const mapStateToProps = (state) => ({
+  budgets: state.budgetsReducer.budgets,
+  expenses: state.budgetsReducer.expenses,
+});
+
+// mapping action and store the function via props
+export default connect(mapStateToProps)(TotalBudgetCard);
