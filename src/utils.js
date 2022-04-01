@@ -28,3 +28,5 @@ export const saveState = (state) => {
     // ignore write errors
   }
 };
+
+export const UNCATEGORIZED_BUDGET_ID = "Uncategorized";

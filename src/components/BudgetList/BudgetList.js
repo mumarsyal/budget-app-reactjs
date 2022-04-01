@@ -1,11 +1,10 @@
 import { Col, Container, Row } from "react-bootstrap";
+import { connect } from "react-redux";
 
 import BudgetCard from "../BudgetCard/BudgetCard";
 import TotalBudgetCard from "../BudgetCard/TotalBudgetCard";
 import UncategorizedBudgetCard from "../BudgetCard/UncategorizedBudgetCard";
-import { UNCATEGORIZED_BUDGET_ID } from "../../contexts/BudgetsContext";
-import { connect } from "react-redux";
-import { getBudgetExpenses } from "../../utils";
+import { getBudgetExpenses, UNCATEGORIZED_BUDGET_ID } from "../../utils";
 
 function BudgetList(props) {
   return (

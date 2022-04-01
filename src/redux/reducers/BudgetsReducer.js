@@ -1,6 +1,6 @@
 import { v4 } from "uuid";
-import { UNCATEGORIZED_BUDGET_ID } from "../../contexts/BudgetsContext";
 
+import { UNCATEGORIZED_BUDGET_ID } from "../../utils";
 import actionTypes from "../actions/actionTypes";
 
 const initialState = {

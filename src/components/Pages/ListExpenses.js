@@ -2,9 +2,8 @@ import { Button, Container, Stack, Table } from "react-bootstrap";
 import { connect } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { UNCATEGORIZED_BUDGET_ID } from "../../contexts/BudgetsContext";
 import { BudgetActions, ExpenseActions } from "../../redux/actions";
-import { currencyFormatter, getBudgetExpenses } from "../../utils";
+import { currencyFormatter, getBudgetExpenses, UNCATEGORIZED_BUDGET_ID } from "../../utils";
 
 function ListExpenses(props) {
   const navigate = useNavigate();

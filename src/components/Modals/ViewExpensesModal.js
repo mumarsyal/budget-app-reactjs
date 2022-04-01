@@ -1,10 +1,7 @@
 import { Button, Modal, Stack } from "react-bootstrap";
 
-import {
-  UNCATEGORIZED_BUDGET_ID,
-  useBudgets,
-} from "../../contexts/BudgetsContext";
-import { currencyFormatter } from "../../utils";
+import { useBudgets } from "../../contexts/BudgetsContext";
+import { currencyFormatter, UNCATEGORIZED_BUDGET_ID } from "../../utils";
 
 function ViewExpensesModal(props) {
   const { budgets, getBudgetExpenses, deleteBudget, deleteExpense } =

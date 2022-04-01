@@ -1,7 +1,6 @@
 import { connect } from "react-redux";
 
-import { UNCATEGORIZED_BUDGET_ID } from "../../contexts/BudgetsContext";
-import { getBudgetExpenses } from "../../utils";
+import { getBudgetExpenses, UNCATEGORIZED_BUDGET_ID } from "../../utils";
 import BudgetCard from "./BudgetCard";
 
 function UncategorizedBudgetCard(props) {

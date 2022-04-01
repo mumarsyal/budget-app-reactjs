@@ -2,8 +2,7 @@ import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
-
-import { UNCATEGORIZED_BUDGET_ID } from "../../contexts/BudgetsContext";
+import { UNCATEGORIZED_BUDGET_ID } from "../../utils";
 
 function AddExpenseForm(props) {
   const {
