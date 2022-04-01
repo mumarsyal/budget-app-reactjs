@@ -19,11 +19,12 @@ function ListExpenses(props) {
 
   return (
     <Container>
-      <h3>
+      <h3 className="mt-3">
         <Stack direction="horizontal" gap={2}>
           <div>Expenses - {curBudget?.title}</div>
           {routeParams.budgetId !== UNCATEGORIZED_BUDGET_ID && (
             <Button
+              className="ms-auto"
               variant="outline-danger"
               onClick={() => {
                 props.deleteBudget(routeParams.budgetId);

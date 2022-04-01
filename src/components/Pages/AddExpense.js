@@ -20,7 +20,7 @@ function AddExpense(props) {
 
   return (
     <Container>
-      <h3>New Expense</h3>
+      <h3 className="mt-3">New Expense</h3>
       <AddExpenseForm onSubmit={handleFormSubmit}></AddExpenseForm>
     </Container>
   );

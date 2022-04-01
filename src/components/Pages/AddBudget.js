@@ -19,7 +19,7 @@ function AddBudget(props) {
 
   return (
     <Container>
-      <h3>New Budget</h3>
+      <h3 className="mt-3">New Budget</h3>
       <AddBudgetForm onSubmit={handleFormSubmit}></AddBudgetForm>
     </Container>
   );
