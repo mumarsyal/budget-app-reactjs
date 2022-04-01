@@ -40,13 +40,13 @@ export default function BudgetCard(props) {
 
         {props.showButtons && (
           <Stack direction="horizontal" gap={2} className="mt-4">
-            {/* <Button
+            <Button
               variant="outline-primary"
               className="ms-auto"
               onClick={props.onAddExpense}
             >
-              Add Expense
-            </Button> */}
+              Add Expense Modal
+            </Button>
             <Link to={props.id + "/add-expense"} className="ms-auto">
               <Button variant="outline-primary">Add Expense</Button>
             </Link>

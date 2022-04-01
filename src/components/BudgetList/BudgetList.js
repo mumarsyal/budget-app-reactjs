@@ -23,7 +23,7 @@ function BudgetList(props) {
                 title={budget.title}
                 max={budget.max}
                 amountSpent={amountSpent}
-                // onAddExpense={() => openAddExpenseModalBudgetId(budget.id)}
+                onAddExpense={() => props.openAddExpenseModalBudgetId(budget.id)}
                 // onViewExpenses={() => setViewExpensesModalBudgetId(budget.id)}
                 showButtons={true}
               ></BudgetCard>
@@ -33,7 +33,7 @@ function BudgetList(props) {
         <Col lg={6}>
           <UncategorizedBudgetCard
             id={UNCATEGORIZED_BUDGET_ID}
-            // onAddExpense={() => openAddExpenseModalBudgetId()}
+            onAddExpense={() => props.openAddExpenseModalBudgetId()}
             // onViewExpenses={() =>
             //   setViewExpensesModalBudgetId(UNCATEGORIZED_BUDGET_ID)
             // }

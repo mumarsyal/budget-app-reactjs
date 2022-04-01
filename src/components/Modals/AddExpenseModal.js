@@ -30,7 +30,7 @@ function AddExpenseModal(props) {
         <Modal.Title>New Expense</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <AddExpenseForm onSubmit={handleFormSubmit}></AddExpenseForm>
+        <AddExpenseForm defaultBudgetId={props.defaultBudgetId} onSubmit={handleFormSubmit}></AddExpenseForm>
       </Modal.Body>
     </Modal>
   );

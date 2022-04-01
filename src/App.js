@@ -34,11 +34,20 @@ function App() {
       ></Header>
 
       <Routes>
-        <Route path="/" element={<BudgetList/>}/>
-        <Route path="/add-budget" element={<AddBudget/>}/>
-        <Route path="/add-expense" element={<AddExpense/>}/>
-        <Route path="/:budgetId/add-expense" element={<AddExpense/>}/>
-        <Route path="/:budgetId/view-expenses" element={<ListExpenses/>}/>
+        <Route
+          path="/"
+          element={
+            <BudgetList
+              openAddExpenseModalBudgetId={(id) =>
+                openAddExpenseModalBudgetId(id)
+              }
+            />
+          }
+        />
+        <Route path="/add-budget" element={<AddBudget />} />
+        <Route path="/add-expense" element={<AddExpense />} />
+        <Route path="/:budgetId/add-expense" element={<AddExpense />} />
+        <Route path="/:budgetId/view-expenses" element={<ListExpenses />} />
       </Routes>
 
       <AddBudgetModal
