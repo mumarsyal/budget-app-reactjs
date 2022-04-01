@@ -21,7 +21,7 @@ export default function BudgetCard(props) {
           <div>{props.title}</div>
           <div>
             {currencyFormatter.format(props.amountSpent)}{" "}
-            {props.max && (
+            {!isNaN(props.max) && (
               <span className="text-muted fs-6">
                 / {currencyFormatter.format(props.max)}
               </span>
@@ -29,7 +29,7 @@ export default function BudgetCard(props) {
           </div>
         </Card.Title>
 
-        {props.max && (
+        {props.max > 0 && (
           <ProgressBar
             variant={getProgressBarVariant(props.amountSpent, props.max)}
             min={0}

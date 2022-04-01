@@ -1,4 +1,5 @@
 import { v4 } from "uuid";
+import { UNCATEGORIZED_BUDGET_ID } from "../../contexts/BudgetsContext";
 
 import actionTypes from "../actions/actionTypes";
 
@@ -43,7 +44,11 @@ function addBudget(prevBudgets, newBudget) {
 }
 
 function deleteBudget(state, id) {
-  const expenses = state.expenses.filter((expense) => expense.budgetId !== id);
+  const expenses = state.expenses.map((expense) => {
+    if (expense.budgetId !== id) return expense;
+    return { ...expense, budgetId: UNCATEGORIZED_BUDGET_ID };
+  });
+
   const budgets = state.budgets.filter((budget) => budget.id !== id);
 
   return { ...state, budgets: [...budgets], expenses: [...expenses] };

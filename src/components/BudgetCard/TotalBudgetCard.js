@@ -9,8 +9,6 @@ function TotalBudgetCard(props) {
     0
   );
 
-  if (!max) return null;
-
   return (
     <BudgetCard
       amountSpent={amountSpent}

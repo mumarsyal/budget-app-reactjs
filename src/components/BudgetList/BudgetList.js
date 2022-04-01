@@ -31,20 +31,16 @@ function BudgetList(props) {
             </Col>
           );
         })}
-        {props.budgets.findIndex(
-          (budget) => budget.id === UNCATEGORIZED_BUDGET_ID
-        ) >= 0 && (
-          <Col lg={6}>
-            <UncategorizedBudgetCard
-              id={UNCATEGORIZED_BUDGET_ID}
-              // onAddExpense={() => openAddExpenseModalBudgetId()}
-              // onViewExpenses={() =>
-              //   setViewExpensesModalBudgetId(UNCATEGORIZED_BUDGET_ID)
-              // }
-              showButtons={true}
-            ></UncategorizedBudgetCard>
-          </Col>
-        )}
+        <Col lg={6}>
+          <UncategorizedBudgetCard
+            id={UNCATEGORIZED_BUDGET_ID}
+            // onAddExpense={() => openAddExpenseModalBudgetId()}
+            // onViewExpenses={() =>
+            //   setViewExpensesModalBudgetId(UNCATEGORIZED_BUDGET_ID)
+            // }
+            showButtons={true}
+          ></UncategorizedBudgetCard>
+        </Col>
         <Col lg={6}>
           <TotalBudgetCard></TotalBudgetCard>
         </Col>

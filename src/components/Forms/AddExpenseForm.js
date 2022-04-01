@@ -3,13 +3,9 @@ import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import {
-  UNCATEGORIZED_BUDGET_ID,
-  useBudgets,
-} from "../../contexts/BudgetsContext";
+import { UNCATEGORIZED_BUDGET_ID } from "../../contexts/BudgetsContext";
 
 function AddExpenseForm(props) {
-  const { budgets } = useBudgets();
   const {
     register,
     handleSubmit,
