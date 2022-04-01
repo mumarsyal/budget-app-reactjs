@@ -41,6 +41,9 @@ function App() {
               openAddExpenseModalBudgetId={(id) =>
                 openAddExpenseModalBudgetId(id)
               }
+              setViewExpensesModalBudgetId={(id) =>
+                setViewExpensesModalBudgetId(id)
+              }
             />
           }
         />
@@ -61,10 +64,10 @@ function App() {
         handleClose={closeAddExpenseModal}
       ></AddExpenseModal>
 
-      {/* <ViewExpensesModal
+      <ViewExpensesModal
         budgetId={viewExpensesModalBudgetId}
         handleClose={() => setViewExpensesModalBudgetId()}
-      ></ViewExpensesModal> */}
+      ></ViewExpensesModal>
     </>
   );
 }

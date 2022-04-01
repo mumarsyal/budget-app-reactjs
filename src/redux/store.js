@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 
 import AllReducers from "./reducers";
-import { loadState, saveState } from "../utils";
+import { loadState, saveState } from "../utils/utils";
 
 const reducer = combineReducers({
   ...AllReducers,

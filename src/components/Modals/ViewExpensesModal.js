@@ -1,18 +1,17 @@
 import { Button, Modal, Stack } from "react-bootstrap";
+import { connect } from "react-redux";
 
-import { useBudgets } from "../../contexts/BudgetsContext";
-import { currencyFormatter, UNCATEGORIZED_BUDGET_ID } from "../../utils";
+import { BudgetActions, ExpenseActions } from "../../redux/actions";
+import ExpensesTable from "../ExpensesTable";
+import { getBudgetExpenses, UNCATEGORIZED_BUDGET_ID } from "../../utils/utils";
 
 function ViewExpensesModal(props) {
-  const { budgets, getBudgetExpenses, deleteBudget, deleteExpense } =
-    useBudgets();
-
   const curBudget =
     UNCATEGORIZED_BUDGET_ID === props.budgetId
       ? { title: UNCATEGORIZED_BUDGET_ID, id: UNCATEGORIZED_BUDGET_ID }
-      : budgets.find((budget) => budget.id === props.budgetId);
+      : props.budgets.find((budget) => budget.id === props.budgetId);
 
-  const expenses = getBudgetExpenses(props.budgetId);
+  const expenses = getBudgetExpenses(props.expenses, props.budgetId);
 
   return (
     <Modal show={props.budgetId != null} onHide={props.handleClose}>
@@ -24,7 +23,7 @@ function ViewExpensesModal(props) {
               <Button
                 variant="outline-danger"
                 onClick={() => {
-                  deleteBudget(props.budgetId);
+                  props.deleteBudget(props.budgetId);
                   props.handleClose();
                 }}
               >
@@ -35,26 +34,27 @@ function ViewExpensesModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Stack direction="vertical" gap={3}>
-          {expenses.map((expense) => (
-            <Stack direction="horizontal" gap={2} key={expense.id}>
-              <div className="me-auto fs-4">{expense.description}</div>
-              <div className="fs-5">
-                {currencyFormatter.format(expense.amount)}
-              </div>
-              <Button
-                variant="outline-danger"
-                size="sm"
-                onClick={() => deleteExpense(expense.id)}
-              >
-                &times;
-              </Button>
-            </Stack>
-          ))}
-        </Stack>
+        <ExpensesTable
+          expenses={expenses}
+          deleteExpense={(id) => props.deleteExpense(id)}
+        ></ExpensesTable>
       </Modal.Body>
     </Modal>
   );
 }
 
-export default ViewExpensesModal;
+// Mapping the component's props to the reducer's state
+const mapStateToProps = (state) => ({
+  budgets: state.budgetsReducer.budgets,
+  expenses: state.budgetsReducer.expenses,
+});
+
+// Mapping the component's props to the related actions
+const mapDispatchToProps = (dispatch) => ({
+  deleteBudget: (budgetId) => dispatch(BudgetActions.deleteBudget(budgetId)),
+  deleteExpense: (expenseId) =>
+    dispatch(ExpenseActions.deleteExpense(expenseId)),
+});
+
+// mapping action and store the function via props
+export default connect(mapStateToProps, mapDispatchToProps)(ViewExpensesModal);

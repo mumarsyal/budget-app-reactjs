@@ -1,7 +1,7 @@
 import { Button, Card, ProgressBar, Stack } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-import { currencyFormatter } from "../../utils";
+import { currencyFormatter } from "../../utils/utils";
 
 export default function BudgetCard(props) {
   const classNames = ["mt-3"];
@@ -47,18 +47,14 @@ export default function BudgetCard(props) {
             >
               Add Expense Modal
             </Button>
+            <Button variant="outline-secondary" onClick={props.onViewExpenses}>
+              View Expenses Modal
+            </Button>
             <Link to={props.id + "/add-expense"} className="ms-auto">
               <Button variant="outline-primary">Add Expense</Button>
             </Link>
-            {/* <Button variant="outline-secondary" onClick={props.onViewExpenses}>
-              View Expenses
-            </Button> */}
             <Link to={props.id + "/view-expenses"}>
-              <Button
-                variant="outline-secondary"
-              >
-                View Expenses
-              </Button>
+              <Button variant="outline-secondary">View Expenses</Button>
             </Link>
           </Stack>
         )}

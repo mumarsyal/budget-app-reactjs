@@ -1,9 +1,10 @@
-import { Button, Container, Stack, Table } from "react-bootstrap";
+import { Button, Container, Stack } from "react-bootstrap";
 import { connect } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { BudgetActions, ExpenseActions } from "../../redux/actions";
-import { currencyFormatter, getBudgetExpenses, UNCATEGORIZED_BUDGET_ID } from "../../utils";
+import ExpensesTable from "../ExpensesTable";
+import { getBudgetExpenses, UNCATEGORIZED_BUDGET_ID } from "../../utils/utils";
 
 function ListExpenses(props) {
   const navigate = useNavigate();
@@ -34,35 +35,10 @@ function ListExpenses(props) {
           )}
         </Stack>
       </h3>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Description</th>
-            <th>Amount</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {expenses.map((expense, index) => (
-            <tr key={expense.id}>
-              <td>{index + 1}</td>
-              <td>{expense.description}</td>
-              <td>{currencyFormatter.format(expense.amount)}</td>
-              <td style={{ textAlign: "center" }}>
-                <Button
-                  variant="outline-danger"
-                  size="sm"
-                  style={{ width: "50%" }}
-                  onClick={() => props.deleteExpense(expense.id)}
-                >
-                  &times;
-                </Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <ExpensesTable
+        expenses={expenses}
+        deleteExpense={(id) => props.deleteExpense(id)}
+      ></ExpensesTable>
     </Container>
   );
 }

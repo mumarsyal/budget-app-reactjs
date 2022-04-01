@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import BudgetCard from "../BudgetCard/BudgetCard";
 import TotalBudgetCard from "../BudgetCard/TotalBudgetCard";
 import UncategorizedBudgetCard from "../BudgetCard/UncategorizedBudgetCard";
-import { getBudgetExpenses, UNCATEGORIZED_BUDGET_ID } from "../../utils";
+import { getBudgetExpenses, UNCATEGORIZED_BUDGET_ID } from "../../utils/utils";
 
 function BudgetList(props) {
   return (
@@ -23,8 +23,12 @@ function BudgetList(props) {
                 title={budget.title}
                 max={budget.max}
                 amountSpent={amountSpent}
-                onAddExpense={() => props.openAddExpenseModalBudgetId(budget.id)}
-                // onViewExpenses={() => setViewExpensesModalBudgetId(budget.id)}
+                onAddExpense={() =>
+                  props.openAddExpenseModalBudgetId(budget.id)
+                }
+                onViewExpenses={() =>
+                  props.setViewExpensesModalBudgetId(budget.id)
+                }
                 showButtons={true}
               ></BudgetCard>
             </Col>
@@ -34,9 +38,9 @@ function BudgetList(props) {
           <UncategorizedBudgetCard
             id={UNCATEGORIZED_BUDGET_ID}
             onAddExpense={() => props.openAddExpenseModalBudgetId()}
-            // onViewExpenses={() =>
-            //   setViewExpensesModalBudgetId(UNCATEGORIZED_BUDGET_ID)
-            // }
+            onViewExpenses={() =>
+              props.setViewExpensesModalBudgetId(UNCATEGORIZED_BUDGET_ID)
+            }
             showButtons={true}
           ></UncategorizedBudgetCard>
         </Col>
