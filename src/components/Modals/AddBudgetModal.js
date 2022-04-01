@@ -2,12 +2,10 @@ import { Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
 
-import { useBudgets } from "../../contexts/BudgetsContext";
 import AddBudgetForm from "../Forms/AddBudgetForm";
 import { BudgetActions } from "../../redux/actions";
 
 function AddBudgetModal(props) {
-  const { addBudget } = useBudgets();
   const { reset } = useForm();
 
   function handleFormSubmit(data, e) {

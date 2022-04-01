@@ -11,21 +11,3 @@ export const deleteBudget = (id) => {
     dispatch({ type: actionTypes.DELETE_BUDGET, id: id });
   };
 };
-
-export const getBudgetExpenses = (budgetId) => {
-  return (dispatch) => {
-    dispatch({ type: actionTypes.GET_BUDGET_EXPENSES, budgetId: budgetId });
-  };
-};
-
-export const getBudgetExpenseList = (budgetId) => {
-  return (dispatch) => {
-    dispatch({ type: actionTypes.GET_BUDGET_EXPENSE_LIST, budgetId: budgetId });
-  };
-};
-
-const actions = {
-  addBudget,
-};
-
-export default actions;

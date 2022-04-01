@@ -2,26 +2,20 @@ import { Button, Container, Stack, Table } from "react-bootstrap";
 import { connect } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
-import {
-  UNCATEGORIZED_BUDGET_ID,
-  useBudgets,
-} from "../../contexts/BudgetsContext";
+import { UNCATEGORIZED_BUDGET_ID } from "../../contexts/BudgetsContext";
 import { BudgetActions, ExpenseActions } from "../../redux/actions";
-import { currencyFormatter } from "../../utils";
+import { currencyFormatter, getBudgetExpenses } from "../../utils";
 
 function ListExpenses(props) {
   const navigate = useNavigate();
   const routeParams = useParams();
-
-  const { budgets, getBudgetExpenses, deleteBudget, deleteExpense } =
-    useBudgets();
 
   const curBudget =
     UNCATEGORIZED_BUDGET_ID === routeParams.budgetId
       ? { title: UNCATEGORIZED_BUDGET_ID, id: UNCATEGORIZED_BUDGET_ID }
       : props.budgets.find((budget) => budget.id === routeParams.budgetId);
 
-  props.getBudgetExpenseList(routeParams.budgetId);
+  const expenses = getBudgetExpenses(props.expenses, routeParams.budgetId);
 
   return (
     <Container>
@@ -51,7 +45,7 @@ function ListExpenses(props) {
           </tr>
         </thead>
         <tbody>
-          {curBudget.expenseList.map((expense, index) => (
+          {expenses.map((expense, index) => (
             <tr key={expense.id}>
               <td>{index + 1}</td>
               <td>{expense.description}</td>
@@ -85,8 +79,6 @@ const mapDispatchToProps = (dispatch) => ({
   deleteBudget: (budgetId) => dispatch(BudgetActions.deleteBudget(budgetId)),
   deleteExpense: (expenseId) =>
     dispatch(ExpenseActions.deleteExpense(expenseId)),
-  getBudgetExpenseList: (budgetId) =>
-    dispatch(BudgetActions.getBudgetExpenseList(budgetId)),
 });
 
 // mapping action and store the function via props

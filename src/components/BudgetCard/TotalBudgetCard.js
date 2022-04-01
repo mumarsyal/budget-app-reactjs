@@ -1,10 +1,8 @@
 import { connect } from "react-redux";
-import { useBudgets } from "../../contexts/BudgetsContext";
+
 import BudgetCard from "./BudgetCard";
 
 function TotalBudgetCard(props) {
-  const { budgets, expenses } = useBudgets();
-
   const max = props.budgets.reduce((total, budget) => total + budget.max, 0);
   const amountSpent = props.expenses.reduce(
     (total, expense) => total + expense.amount,

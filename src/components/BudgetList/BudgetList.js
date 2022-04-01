@@ -3,32 +3,27 @@ import { Col, Container, Row } from "react-bootstrap";
 import BudgetCard from "../BudgetCard/BudgetCard";
 import TotalBudgetCard from "../BudgetCard/TotalBudgetCard";
 import UncategorizedBudgetCard from "../BudgetCard/UncategorizedBudgetCard";
-import {
-  UNCATEGORIZED_BUDGET_ID,
-  useBudgets,
-} from "../../contexts/BudgetsContext";
+import { UNCATEGORIZED_BUDGET_ID } from "../../contexts/BudgetsContext";
 import { connect } from "react-redux";
-import { BudgetActions } from "../../redux/actions";
+import { getBudgetExpenses } from "../../utils";
 
 function BudgetList(props) {
-  const { budgets, getBudgetExpenses } = useBudgets();
-
   return (
     <Container>
       <Row>
         {props.budgets.map((budget) => {
-          // const amountSpent = getBudgetExpenses(budget.id).reduce(
-          //   (total, expense) => total + expense.amount,
-          //   0
-          // );
-          props.getBudgetExpenses(budget.id);
+          const amountSpent = getBudgetExpenses(
+            props.expenses,
+            budget.id
+          ).reduce((total, expense) => total + expense.amount, 0);
+
           return (
             <Col lg={6} key={budget.id}>
               <BudgetCard
                 id={budget.id}
                 title={budget.title}
                 max={budget.max}
-                amountSpent={budget.expenses}
+                amountSpent={amountSpent}
                 // onAddExpense={() => openAddExpenseModalBudgetId(budget.id)}
                 // onViewExpenses={() => setViewExpensesModalBudgetId(budget.id)}
                 showButtons={true}
@@ -61,13 +56,8 @@ function BudgetList(props) {
 // Mapping the component's props to the reducer's state
 const mapStateToProps = (state) => ({
   budgets: state.budgetsReducer.budgets,
-});
-
-// Mapping the component's props to the related actions
-const mapDispatchToProps = (dispatch) => ({
-  getBudgetExpenses: (budgetId) =>
-    dispatch(BudgetActions.getBudgetExpenses(budgetId)),
+  expenses: state.budgetsReducer.expenses,
 });
 
 // mapping action and store the function via props
-export default connect(mapStateToProps, mapDispatchToProps)(BudgetList);
+export default connect(mapStateToProps)(BudgetList);

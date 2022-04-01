@@ -19,10 +19,6 @@ const budgetsReducer = (state = initialState, action) => {
       return { ...state, expenses: updatedExpenses };
     case actionTypes.DELETE_EXPENSE:
       return deleteExpense({ ...state }, action.id);
-    case actionTypes.GET_BUDGET_EXPENSES:
-      return getBudgetExpenses({ ...state }, action.budgetId);
-    case actionTypes.GET_BUDGET_EXPENSE_LIST:
-      return getBudgetExpensesList({ ...state }, action.budgetId);
     default:
       return state;
   }
@@ -69,31 +65,6 @@ function deleteExpense(state, id) {
   const expenses = state.expenses.filter((expense) => expense.id !== id);
 
   return { ...state, expenses: [...expenses] };
-}
-
-function getBudgetExpenses(state, budgetId) {
-  const budgetExpenses = state.expenses
-    .filter((expense) => expense.budgetId === budgetId)
-    .reduce((total, expense) => total + expense.amount, 0);
-  const budgetIndex = state.budgets.findIndex(
-    (budget) => budget.id === budgetId
-  );
-  if (budgetIndex >= 0) {
-    state.budgets[budgetIndex].expenses = budgetExpenses;
-  }
-  return state;
-}
-
-function getBudgetExpensesList(state, budgetId) {
-  const budgetExpenses = state.expenses
-    .filter((expense) => expense.budgetId === budgetId);
-  const budgetIndex = state.budgets.findIndex(
-    (budget) => budget.id === budgetId
-  );
-  if (budgetIndex >= 0) {
-    state.budgets[budgetIndex].expenseList = budgetExpenses;
-  }
-  return state;
 }
 
 export default budgetsReducer;

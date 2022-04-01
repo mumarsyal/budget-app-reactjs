@@ -1,16 +1,16 @@
 import { Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { connect } from "react-redux";
 
-import { useBudgets } from "../../contexts/BudgetsContext";
+import { ExpenseActions } from "../../redux/actions";
 import AddExpenseForm from "../Forms/AddExpenseForm";
 
 function AddExpenseModal(props) {
-  const { addExpense } = useBudgets();
   const { reset } = useForm();
 
   function handleFormSubmit(data, e) {
     e.preventDefault();
-    addExpense({
+    props.addExpense({
       amount: +data.amount,
       description: data.description,
       budgetId: data.budgetId,
@@ -36,4 +36,9 @@ function AddExpenseModal(props) {
   );
 }
 
-export default AddExpenseModal;
+// Mapping the component's props to the related actions
+const mapDispatchToProps = (dispatch) => ({
+  addExpense: (data) => dispatch(ExpenseActions.addExpense(data)),
+});
+
+export default connect(null, mapDispatchToProps)(AddExpenseModal);

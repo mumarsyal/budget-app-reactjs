@@ -2,13 +2,11 @@ import { Container } from "react-bootstrap";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { useBudgets } from "../../contexts/BudgetsContext";
 import { ExpenseActions } from "../../redux/actions";
 import AddExpenseForm from "../Forms/AddExpenseForm";
 
 function AddExpense(props) {
   const navigate = useNavigate();
-  const { addExpense } = useBudgets();
 
   function handleFormSubmit(data, e) {
     e.preventDefault();

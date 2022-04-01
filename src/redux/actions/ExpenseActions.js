@@ -11,9 +11,3 @@ export const deleteExpense = (id) => {
     dispatch({ type: actionTypes.DELETE_EXPENSE, id: id });
   };
 };
-
-const actions = {
-  addExpense,
-};
-
-export default actions;
